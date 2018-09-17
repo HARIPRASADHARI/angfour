@@ -1,0 +1,53 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <div ngModelGroup="contact">
+  <div class="form-group">
+    <label for="firstName">Email address</label>
+    <input type="text" required class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="First Name"
+    ngModel #firstName="ngModel" name="firstName" 
+    minlength="3" maxlength="10" pattern="banana" (click)="log(firstName)">
+    <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+      <div *ngIf="firstName.errors.required"
+      >Fisr Name is required</div>
+      <div *ngIf="firstName.errors.minlength"
+      >Fisr Name is minlength</div>
+      <div *ngIf="firstName.errors.pattern"
+      >Fisr Name is pattern</div>
+    </div>
+  </div>
+</div>
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <textarea  class="form-control" id="comment" rows="3"
+    ngModel name="comment"></textarea>
+  </div>
+  <div class="form-group">
+      <label for="contactMethod">Example select</label>
+      <select class="form-control" id="contactMethod" ngModel name="contactMethod">
+        <option></option>
+        <option *ngFor="let meth of contactMethods"
+        [ngValue]="meth"
+        >{{meth.name}}</option>
+      </select>
+    </div>
+  <div class="form-check">
+      <input class="form-check-input" ngModel name="isSubscribe" type="checkbox" value="" id="defaultCheck1">
+      <label class="form-check-label" for="defaultCheck1">
+        Default checkbox
+      </label>
+      {{f.value|json}}
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="emailRadios" id="emailRadios2" value="option1">
+        <label class="form-check-label" for="emailRadios2">
+          email
+        </label>
+      </div>
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="phoneRadios" id="phoneRadios2" value="option2">
+          <label class="form-check-label" for="phoneRadios2">
+            phone
+          </label>
+        </div>
+  <button type="submit" class="btn btn-primary"
+  [disabled]="!f.valid">Submit</button>
+</form>

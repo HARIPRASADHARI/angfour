@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label for="content">Topic</label>
+  <input type="text" 
+  class="form-control" 
+  id="titlE"
+  #title
+  (keyup.enter)="createPost(title)" #topic 
+  placeholder="Title">
+</div>
+<ul class="list-group">
+  <li 
+  class="list-group-item" 
+  *ngFor="let pos of post"
+  >{{pos.title}}
+  <hr>
+    <button (click)="updatePost(pos)"
+    class="btn btn-default"
+    >update</button>
+    <button (click)="deletePost(pos)"
+    class="btn btn-default"
+    >delete</button>
+  </li>
+</ul>

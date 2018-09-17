@@ -1,3 +1,7 @@
+import { AppErrorHandler } from './common/app-erro-handler';
+import { ErrorHandler } from '@angular/core';
+import { PostService } from './services/post.service';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,6 +10,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth'; 
 import { RouterModule } from '@angular/router'; 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
+import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 
 import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
@@ -18,6 +25,10 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
+import { NewcourseComponent } from './newcourse/newcourse.component';
+import { PostComponent } from './post/post.component';
+
 
 @NgModule({
   declarations: [
@@ -31,27 +42,39 @@ import { LoginComponent } from './login/login.component';
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ContactFormComponent,
+    SignupFormComponent,
+    NewcourseComponent,
+    PostComponent,
+    
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'shopping-cart', component: ShoppingCartComponent },
-      { path: 'check-out', component: CheckOutComponent },
-      { path: 'order-success', component: OrderSuccessComponent },
-      { path: 'my/orders', component: MyOrdersComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'admin/products', component: AdminProductsComponent },
-      { path: 'admin/orders', component: AdminOrdersComponent }
-    ])    
+    // RouterModule.forRoot([
+    //   { path: '', component: ContactFormComponent },
+    //   { path: 'products', component: ProductsComponent },
+    //   { path: 'shopping-cart', component: ShoppingCartComponent },
+    //   { path: 'check-out', component: CheckOutComponent },
+    //   { path: 'order-success', component: OrderSuccessComponent },
+    //   { path: 'my/orders', component: MyOrdersComponent },
+    //   { path: 'login', component: LoginComponent },
+    //   { path: 'admin/products', component: AdminProductsComponent },
+    //   { path: 'admin/orders', component: AdminOrdersComponent }
+    // ])    
   ],
-  providers: [],
+  providers: [PostService,
+    {
+      provide:ErrorHandler,useClass: AppErrorHandler
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
